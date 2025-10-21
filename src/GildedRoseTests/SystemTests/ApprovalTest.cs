@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using GildedRoseKata;
 
-namespace GildedRoseTests;
+namespace GildedRoseTests.SystemTests;
 
 public class ApprovalTest
 {
@@ -15,6 +15,6 @@ public class ApprovalTest
         Program.Main(["30"]);
         var output = fakeOutput.ToString();
 
-        return Verifier.Verify(output);
+        return Verify(output);
     }
 }

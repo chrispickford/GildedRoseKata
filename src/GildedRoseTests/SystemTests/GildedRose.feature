@@ -18,10 +18,22 @@ Scenario: The Quality of an item is never negative
     When the items are updated at the end of the day
     Then the Quality value equals 0
 
-Scenario: "Aged Brie" actually increases in Quality the older it gets
+Scenario Outline: "Aged Brie" actually increases in Quality the older it gets
     Given the item is named "Aged Brie"
+    And the item has a SellIn value of <s1>
+    And the item has a Quality value of <q1>
     When the items are updated at the end of the day
-    Then the Quality value is increased
+    Then the SellIn value equals <s2>
+    And the Quality value equals <q2>
+
+    Examples:
+        | s1 | q1 | s2 | q2 |
+        | 10 | 10 |  9 | 11 |
+        |  1 | 10 |  0 | 11 |
+        |  0 | 10 | -1 | 12 |
+        | -8 | 10 | -9 | 12 |
+        | 10 | 50 |  9 | 50 |
+        | -8 | 50 | -9 | 50 |
 
 Scenario: The Quality of an item is never more than 50
     Given the item is named "Aged Brie"
@@ -52,3 +64,5 @@ Scenario Outline: "Backstage passes", like aged brie, increases in Quality as it
         |  5 | 10 |  4 | 13 |
         |  1 | 10 |  0 | 13 |
         |  0 | 10 | -1 |  0 |
+        | 11 | 50 | 10 | 50 |
+        | 10 | 50 |  9 | 50 |
