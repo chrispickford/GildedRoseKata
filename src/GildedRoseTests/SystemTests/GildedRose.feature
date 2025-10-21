@@ -66,3 +66,21 @@ Scenario Outline: "Backstage passes", like aged brie, increases in Quality as it
         |  0 | 10 | -1 |  0 |
         | 11 | 50 | 10 | 50 |
         | 10 | 50 |  9 | 50 |
+
+Scenario Outline: "Conjured" items degrade in Quality twice as fast as normal items
+    Given the item is named "Conjured Mana Cake"
+    And the item has a SellIn value of <s1>
+    And the item has a Quality value of <q1>
+    When the items are updated at the end of the day
+    Then the SellIn value equals <s2>
+    And the Quality value equals <q2>
+
+    Examples:
+        | s1 | q1 | s2 | q2 |
+        |  3 |  6 |  2 |  4 |
+        | 10 | 10 |  9 |  8 |
+        |  1 | 10 |  0 |  8 |
+        |  0 | 10 | -1 |  6 |
+        | -8 | 10 | -9 |  6 |
+        | 10 |  0 |  9 |  0 |
+        |  0 |  0 | -1 |  0 |
