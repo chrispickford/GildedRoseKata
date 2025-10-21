@@ -5,6 +5,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <StartupObject>GildedRoseKata.Program</StartupObject>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>GildedRoseKata</RootNamespace>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
 </Project>
