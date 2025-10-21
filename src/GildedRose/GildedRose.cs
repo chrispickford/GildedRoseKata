@@ -4,18 +4,20 @@ namespace GildedRoseKata;
 
 public class GildedRose
 {
-    private readonly IList<Item> _items;
+    IList<Item> Items;
+
     private readonly ItemProcessorFactory _itemProcessorFactory;
 
-    public GildedRose(IList<Item> items)
+    public GildedRose(IList<Item> Items)
     {
-        _items = items;
+        this.Items = Items;
 
         IEnumerable<IItemProcessor> itemProcessors =
         [
             new AgedBrieItemProcessor(),
             new BackstagePassItemProcessor(),
             new LegendaryItemProcessor(),
+            new ConjuredItemProcessor(),
             new GenericItemProcessor()
         ];
 
@@ -24,7 +26,7 @@ public class GildedRose
 
     public void UpdateQuality()
     {
-        foreach (var item in _items)
+        foreach (var item in Items)
         {
             ProcessItem(item);
         }
