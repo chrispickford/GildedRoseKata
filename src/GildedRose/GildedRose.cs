@@ -13,7 +13,8 @@ public class GildedRose
 
         IEnumerable<IItemProcessor> itemProcessors =
         [
-            new AgedBrieItemProcessor()
+            new AgedBrieItemProcessor(),
+            new BackstagePassItemProcessor()
         ];
 
         _itemProcessorFactory = new ItemProcessorFactory(itemProcessors);
