@@ -5,7 +5,7 @@ namespace GildedRoseKata;
 public class GildedRose
 {
     private readonly IList<Item> _items;
-    private readonly IItemProcessorFactory _itemProcessorFactory;
+    private readonly ItemProcessorFactory _itemProcessorFactory;
 
     public GildedRose(IList<Item> items)
     {
@@ -26,85 +26,10 @@ public class GildedRose
     {
         foreach (var item in _items)
         {
-            var itemProcessor = _itemProcessorFactory.GetItemProcessor(item.Name);
-
-            if (itemProcessor != null)
-            {
-                itemProcessor.UpdateItem(item);
-                continue;
-            }
-
-            throw new InvalidOperationException();
-
-            if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
-            {
-                if (item.Quality > 0)
-                {
-                    if (item.Name != "Sulfuras, Hand of Ragnaros")
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                }
-            }
-            else
-            {
-                if (item.Quality < 50)
-                {
-                    item.Quality = item.Quality + 1;
-
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (item.SellIn < 11)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
-                        }
-
-                        if (item.SellIn < 6)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.SellIn = item.SellIn - 1;
-            }
-
-            if (item.SellIn < 0)
-            {
-                if (item.Name != "Aged Brie")
-                {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (item.Quality > 0)
-                        {
-                            if (item.Name != "Sulfuras, Hand of Ragnaros")
-                            {
-                                item.Quality = item.Quality - 1;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        item.Quality = item.Quality - item.Quality;
-                    }
-                }
-                else
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
-                }
-            }
+            ProcessItem(item);
         }
     }
+
+    private void ProcessItem(Item item) =>
+        _itemProcessorFactory.GetItemProcessor(item.Name)?.UpdateItem(item);
 }
