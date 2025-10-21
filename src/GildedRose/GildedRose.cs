@@ -14,7 +14,9 @@ public class GildedRose
         IEnumerable<IItemProcessor> itemProcessors =
         [
             new AgedBrieItemProcessor(),
-            new BackstagePassItemProcessor()
+            new BackstagePassItemProcessor(),
+            new LegendaryItemProcessor(),
+            new GenericItemProcessor()
         ];
 
         _itemProcessorFactory = new ItemProcessorFactory(itemProcessors);
@@ -31,6 +33,8 @@ public class GildedRose
                 itemProcessor.UpdateItem(item);
                 continue;
             }
+
+            throw new InvalidOperationException();
 
             if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
